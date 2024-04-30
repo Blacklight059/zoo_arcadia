@@ -1,3 +1,60 @@
+
 body {
-    background-color: skyblue;
+    font-family: 'Value Serif', serif;
 }
+
+/* header */
+
+/* navbar */
+.navbar-nav {
+    font-weight: bold;
+}
+
+.user-toggler {
+    display: none;
+}
+
+#banner {
+    background-color: #D67940;
+    font-size: 1.4em;
+    color: white;
+}
+
+.nav-item {
+    font-weight: normal;
+}
+
+.nav-item:hover {
+    background-color: #CCD9E2;
+    color: black;
+}
+
+#footer {
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    position: absolute;
+    font-family: "Halant", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.btn {
+    background-color: #FFCC00;
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 5px 20px;
+}
+
+#title {
+    font-family: "Halant", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Footer */
+
+.social-buttons a {
+    text-decoration: none;
+    color: #FFCC00;
+  }

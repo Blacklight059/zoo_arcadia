@@ -2,16 +2,145 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Value+Serif:wght@400&family=Halant:wght@400&family=Vollkorn:wght@400&family=Georgia&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Halant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <span id="title">Arcadia</span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="#">Accueil</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Habitats</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn" type="button">
+                        Connexion
+                    </button>
+                </div>
+            </nav>                    
+            {% if app.user %}
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>                    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Animals</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Conservation</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Tickets</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </nav>
+            {% endif %}
+        </header>
+        {% block body %}{% endblock %}
+            <footer>
+                <div class="position-absolute justify-content-center p-4" id="footer">
+                    <div class="container">
+                        <div class="row text-center align-items-baseline ">
+                            <div class="d-inline align-items-baseline col-lg-12 mb-3">
+                                <div class="fw-bolder">
+                                    Réseaux sociaux :
+                                </div>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="d-flex justify-content-around col-lg-4 mt-3 social-buttons">
+                                            <a href="#" class="col" target="_blank" rel="noopener">
+                                                <i class="fab fa-facebook fa-xl fa-bounce" area-hidden="true">
+                                                </i>
+                                            </a>
+                                            <a href="#" class="col" target="_blank" rel="noopener">
+                                                <i class="fab fa-twitter fa-xl fa-bounce" area-hidden="true">
+                                                </i>
+                                            </a>
+                                            <a href="#" class="col" target="_blank" rel="noopener">
+                                                <i class="fab fa-youtube fa-xl fa-bounce" area-hidden="true">
+                                                </i>
+                                            </a>
+                                            <a href="#" class="col" target="_blank" rel="noopener">
+                                                <i class="fab fa-instagram fa-xl fa-bounce" area-hidden="true">
+                                                </i>
+                                            </a>
+                                        </div>                                    
+                                    </div>
+
+                            </div>
+                        </div>
+                        <div class="row text-center align-items-baseline ">
+
+                            <div class="d-inline col-lg-4 col-md-6 col-12">
+                                <div class="fw-bolder">
+                                    À propos de Arcadia
+                                </div>
+                                <ul class="list-unstyled openning-hours">
+                                    <li class="nav-item">Groupe de faune de Arcadia
+                                    </li>
+                                    <li class="nav-item">La famille Arcadia
+                                    </li>
+                                    <li class="nav-item">Projet de rajeunissement de Arcadia
+                                    </li>                                 
+                                </ul>
+                            </div>
+                            <div class="d-inline col-lg-4 col-md-6 col-12">
+                                <div class="fw-bolder">
+                                    Entreprise
+                                </div>
+                                <ul class="list-unstyled openning-hours">
+                                    <li class="nav-item">Planifiez un événement sauvage
+                                    </li>
+                                    <li class="nav-item">Avantages de la faune pour les entreprises
+                                    </li>  
+                                    <li class="nav-item">Programme d'adoption
+                                    </li>                        
+                                </ul>
+                            </div>
+                            <div class="d-inline col-lg-4 col-md-6 col-12">
+                                <div class="fw-bolder">
+                                    Besoin d'aide?
+                                </div>
+                                <ul class="list-unstyled openning-hours">
+                                    <li class="nav-item">Planifiez un événement sauvage
+                                    </li>
+                                    <li class="nav-item">Annonces
+                                    </li>  
+                                    <li class="nav-item">FAQ
+                                    </li>
+                                    <li class="nav-item">Contacter-nous
+                                    </li>                              
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://kit.fontawesome.com/c2a84b56c5.js" crossorigin="anonymous"></script>
         {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
     </body>
 </html>
