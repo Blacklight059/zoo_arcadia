@@ -58,3 +58,34 @@ body {
     text-decoration: none;
     color: #FFCC00;
   }
+
+/* Homepage */
+.video-container {
+    position: relative;
+    width: 100%; 
+}
+  
+.video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+  
+.text-overlay {
+    position: absolute;
+    font-weight: bold;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+  
+.text-overlay h2 {
+    font-size: 2rem; /* Taille de la police pour le titre */
+}
+
+#presentation-services {
+    background-color: #009B4D;
+    color: white;
+}

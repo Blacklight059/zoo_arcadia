@@ -13,27 +13,28 @@
     </head>
     <body class="d-flex flex-column min-vh-100">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <span id="title">Arcadia</span>
-                    </a>
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand m-2" href="#">
+                    <span id="title">Arcadia</span>
+                </a>        
+                <nav class="navbar navbar-expand-lg navbar-light bg-light flex-grow-1 m-2">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"><a class="nav-link" href="#">Accueil</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Habitats</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_homepage') }}">Accueil</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_services') }}">Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_habitats') }}">Habitats</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_contact') }}">Contact</a></li>
                         </ul>
                     </div>
-                    <button class="btn" type="button">
-                        Connexion
-                    </button>
-                </div>
-            </nav>                    
+                </nav>                   
+                <button class="btn m-2" type="button">
+                    Connexion
+                </button>                
+            </div>
+                    
             {% if app.user %}
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
@@ -66,7 +67,7 @@
                                     Réseaux sociaux :
                                 </div>
                                     <div class="d-flex justify-content-center">
-                                        <div class="d-flex justify-content-around col-lg-4 mt-3 social-buttons">
+                                        <div class="d-flex justify-content-around col-lg-4 col-md-6 col-12 mt-3 social-buttons">
                                             <a href="#" class="col" target="_blank" rel="noopener">
                                                 <i class="fab fa-facebook fa-xl fa-bounce" area-hidden="true">
                                                 </i>
@@ -90,7 +91,7 @@
                         </div>
                         <div class="row text-center align-items-baseline ">
 
-                            <div class="d-inline col-lg-4 col-md-6 col-12">
+                            <div class="d-inline col-lg-4 col-12">
                                 <div class="fw-bolder">
                                     À propos de Arcadia
                                 </div>
@@ -103,7 +104,7 @@
                                     </li>                                 
                                 </ul>
                             </div>
-                            <div class="d-inline col-lg-4 col-md-6 col-12">
+                            <div class="d-inline col-lg-4 col-12">
                                 <div class="fw-bolder">
                                     Entreprise
                                 </div>
@@ -116,7 +117,7 @@
                                     </li>                        
                                 </ul>
                             </div>
-                            <div class="d-inline col-lg-4 col-md-6 col-12">
+                            <div class="d-inline col-lg-4 col-12">
                                 <div class="fw-bolder">
                                     Besoin d'aide?
                                 </div>
