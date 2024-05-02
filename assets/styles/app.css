@@ -82,10 +82,20 @@ body {
 }
   
 .text-overlay h2 {
-    font-size: 2rem; /* Taille de la police pour le titre */
+    font-size: 2.5rem; 
 }
 
 #presentation-services {
     background-color: #009B4D;
     color: white;
+}
+
+.title-page {
+    font-family: "Halant", serif;
+    position: relative;
+    font-style: bold;
+    font-size: 3rem; 
+    width: 100%;
+    height: 300px;
+    text-align: center;
 }
