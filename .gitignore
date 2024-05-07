@@ -7,6 +7,10 @@
 /public/bundles/
 /var/
 /vendor/
+
+###> SQL zoo_arcadia.sql ###
+/sql/zoo_arcadia.sql
+
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

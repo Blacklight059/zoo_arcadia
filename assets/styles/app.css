@@ -52,6 +52,7 @@ body {
     font-style: normal;
 }
 
+
 /* Footer */
 
 .social-buttons a {
@@ -90,7 +91,7 @@ body {
     color: white;
 }
 
-.title-page {
+.title-page  {
     font-family: "Halant", serif;
     position: relative;
     font-style: bold;
@@ -98,4 +99,50 @@ body {
     width: 100%;
     height: 300px;
     text-align: center;
+}
+
+
+/* Styles pour le formulaire de connexion */
+.form-signin {
+    background-color: #009B4D;
+    max-width: 400px;
+    padding: 15px;
+    margin: 0 auto;
+    border-radius: 10px; /* Ajoutez cette ligne pour arrondir les angles */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
+
+}
+
+.form-signin .form-control {
+    position: relative;
+    box-sizing: border-box;
+    height: auto;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin input[type="email"],
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+}
+
+.form-signin button[type="submit"] {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Styles pour les messages d'erreur */
+.alert {
+    margin-bottom: 15px;
+}
+
+/* Styles pour le lien de déconnexion */
+.alert-success a {
+    text-decoration: none;
+    color: #155724;
+    font-weight: bold;
+}
+
+.alert-success a:hover {
+    text-decoration: underline;
 }
