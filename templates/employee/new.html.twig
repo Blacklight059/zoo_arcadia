@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Employee{% endblock %}
+
+{% block body %}
+<div id="form-new" class="col-lg-6 col-md-8 col-11 mx-auto mt-4 mb-4 p-3 text-center form-new">
+
+    <h3 class="m-3">Créer un nouvel employé</h3>
+
+    {{ include('employee/_form.html.twig') }}
+
+    <a class="btn-back m-3" href="{{ path('app_employee_index') }}">Retour à la iste</a>
+
+</div>
+{% endblock %}
