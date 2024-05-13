@@ -1,0 +1,14 @@
+api_entity_images_list:
+    path: '/api/{entityType}/{entityId}/images'
+    controller: 'App\Controller\Api\ImageController::index'
+    methods: ['GET']
+
+api_entity_image_upload:
+    path: '/api/{entityType}/{entityId}/images/upload'
+    controller: 'App\Controller\Api\ImageController::upload'
+    methods: ['POST']
+
+api_entity_image_delete:
+    path: '/api/{entityType}/{entityId}/images/{imageId}'
+    controller: 'App\Controller\Api\ImageController::delete'
+    methods: ['DELETE']

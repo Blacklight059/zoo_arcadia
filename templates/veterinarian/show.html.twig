@@ -3,9 +3,9 @@
 {% block title %}Veterinarian{% endblock %}
 
 {% block body %}
-    <h3 class="m-3">>Vétérinaire</h3>
+    <h3 class="m-3">Vétérinaire</h3>
 
-    <table class="table">
+    <table class="table m-2">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -34,7 +34,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_veterinarian_index') }}">back to list</a>
+    <a class="btn-back m-3" href="{{ path('app_veterinarian_index') }}">Retour à la iste</a>
 
     <a href="{{ path('app_veterinarian_edit', {'id': veterinarian.id}) }}">edit</a>
 

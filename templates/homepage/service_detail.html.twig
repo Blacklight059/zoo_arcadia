@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ServicesController!{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="title-page d-flex align-items-center justify-content-center">
+        <h1>{{ service.name }}</h1>
+    </div>
+</div>
+    <div id ="presentation-services">
+        <h3 class="m-2 p-3">Nos services</h3>
+        <div class="d-flex justify-content-center align-items-center m-2">
+            <div class="col-lg-11 text-center">
+                <a href="#" class="d-block mb-4">
+                    <img class="img-fluid img-thumbnail active" style="width:100%" alt="service">
+                </a>
+                <h3 id="title">{{ service.name }}</h3>
+                <p class="description">{{ service.description }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

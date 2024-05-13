@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello habitatsController!{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="title-page d-flex align-items-center justify-content-center">
+        <h1>{{ habitat.name }}</h1>
+    </div>
+</div>
+    <div id ="presentation-services">
+        <h3 class="m-2 p-3">Nos habitats</h3>
+        <div class="d-flex justify-content-center align-items-center m-2">
+            <div class="col-lg-11 text-center">
+                <a href="#" class="d-block mb-4">
+                    <img class="img-fluid img-thumbnail active" style="width:100%" alt="service">
+                </a>
+                <h3 id="title">{{ habitat.name }}</h3>
+                <p class="description">{{ habitat.description }}</p>
+            </div>
+                        <div class="col-lg-11 text-center">
+                <a href="#" class="d-block mb-4">
+                    <img class="img-fluid img-thumbnail active" style="width:100%" alt="service">
+                </a>
+                <h3 id="title">Les animaux</h3>
+                <p class="description">{{ habitat.description }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

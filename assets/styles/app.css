@@ -162,3 +162,13 @@ body {
 .alert-success a:hover {
     text-decoration: underline;
 }
+
+.description {
+    font-size: 1.2em;
+}
+
+.service-image {
+    width: 300px;
+    height: 300px; 
+    object-fit: cover; 
+}
