@@ -13,19 +13,17 @@
         <div class="d-flex justify-content-center align-items-center m-2">
             <div class="col-lg-11 text-center">
                 <a href="#" class="d-block mb-4">
-                    <img class="img-fluid img-thumbnail active" style="width:100%" alt="service">
+                        <img src={{ asset('uploads/habitat_images/') ~ habitat.images[0].name }} class="img-fluid img-thumbnail active" style="width:100%" alt="service">
                 </a>
                 <h3 id="title">{{ habitat.name }}</h3>
                 <p class="description">{{ habitat.description }}</p>
-            </div>
-                        <div class="col-lg-11 text-center">
-                <a href="#" class="d-block mb-4">
-                    <img class="img-fluid img-thumbnail active" style="width:100%" alt="service">
-                </a>
-                <h3 id="title">Les animaux</h3>
-                <p class="description">{{ habitat.description }}</p>
+
             </div>
         </div>
     </div>
+    <div id ="presentation-images" class="title-animal d-flex align-items-center justify-content-center">
+        <h3 id="title">Les animaux</h3>
+    </div>
+
 
 {% endblock %}

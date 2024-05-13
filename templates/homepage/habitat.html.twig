@@ -4,8 +4,19 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .image-overlay {
+        position: relative;
+        width: 100%;
+    }
+    .overlay-content {
+        position: absolute;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Ajoute une couleur de fond semi-transparente */
+        color: white;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
 </style>
 <div class="container-fluid">
     <div class="title-page d-flex align-items-center justify-content-center">
@@ -14,14 +25,21 @@
 </div>
     <div id ="presentation-services">
         <h2 class="m-2">Nos habitats</h2>
-        <div class="d-flex justify-content-center align-items-center m-2">
+        <div class="row justify-content-between align-items-stretch text-center text-lg-start m-3 p-3">
             {% for habitat in habitats %}
-            <div class="col-lg-4 text-center"> 
-                <h3 id="title">{{ habitat.name }}</h3>
-                <p>{{ habitat.description|slice(0, 50) }}...</p>
-                <button class="btn m-2"  onclick="window.location='{{ path('habitatDetail', {'id': habitat.id}) }}'" type="button">
-                    Voir plus
-                </button>            
+            <div class="col-lg-3 col-md-5 col-10 m-3 text-center">
+                <div class="image-overlay">
+                    <a href="#" class="d-block mb-4">
+                        <img src="{{ asset('uploads/habitat_images/') ~ habitat.images[0].name }}" class="img-fluid img-thumbnail active service-image" style="width:100%" alt="service">
+                        <div class="overlay-content">
+                            <h3 id="title">{{ habitat.name }}</h3>
+                            <p>{{ habitat.description|slice(0, 50) }}...</p>
+                            <button class="btn m-2" onclick="window.location='{{ path('habitatDetail', {'id': habitat.id}) }}'" type="button">
+                                Voir plus
+                            </button>     
+                        </div>
+                    </a>
+                </div>               
             </div>
             {% endfor %}
 

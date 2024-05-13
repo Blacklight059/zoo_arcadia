@@ -107,6 +107,11 @@ body {
     color: white;
 }
 
+#presentation-images {
+    background-color: #FFCC00;
+    color: black;
+}
+
 .title-page  {
     font-family: "Halant", serif;
     position: relative;
@@ -114,6 +119,16 @@ body {
     font-size: 3rem; 
     width: 100%;
     height: 300px;
+    text-align: center;
+}
+
+.title-animal  {
+    font-family: "Halant", serif;
+    position: relative;
+    font-style: bold;
+    font-size: 3rem; 
+    width: 100%;
+    height: 100px;
     text-align: center;
 }
 

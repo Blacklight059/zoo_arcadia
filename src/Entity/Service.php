@@ -80,7 +80,6 @@ class Service
     public function removeImage(Image $image): self
     {
         if ($this->images->removeElement($image)) {
-            // Mettez à jour le propriétaire de l'image
             if ($image->getService() === $this) {
                 $image->setService(null);
             }

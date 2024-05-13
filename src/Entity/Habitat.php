@@ -22,11 +22,9 @@ class Habitat
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="habitat", cascade={"persist", "remove"})
-     */
-    private $images;
-    
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'habitat', orphanRemoval: true, cascade: ['persist'])]
+    private Collection $images;
+
     /**
      * @var Collection<int, Animal>
      */

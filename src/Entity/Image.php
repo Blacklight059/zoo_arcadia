@@ -20,15 +20,11 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Service $service = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Habitat", inversedBy="images")
-     */
-    private $habitat;
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Habitat $habitat = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Animal", inversedBy="images")
-     */
-    private $animal;
+    #[ORM\ManyToOne(inversedBy: 'images')]
+    private ?Animal $animal = null;
 
 
     public function getId(): ?int

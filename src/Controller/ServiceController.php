@@ -26,13 +26,33 @@ class ServiceController extends AbstractController
     }
 
     #[Route('/new', name: 'app_service_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager,
+        PictureService $pictureService,
+        
+        ): Response
     {
         $service = new Service();
         $form = $this->createForm(ServiceType::class, $service);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $images = $form->get('images')->getData();
+
+            // On boucle sur les images
+            foreach($images as $image){
+
+                $folder = 'service_images/';
+                // On génère un nouveau nom de fichier
+                $fichier = $pictureService->add($image, $folder, 300, 300);
+
+                $img = new Image();
+                $img->setName($fichier);
+                $service->addImage($img);
+            }
+            
             $entityManager->persist($service);
             $entityManager->flush();
 

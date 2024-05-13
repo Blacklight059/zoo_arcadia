@@ -12,9 +12,11 @@
         <h3 class="m-2 p-3">Nos services</h3>
         <div class="d-flex justify-content-center align-items-center m-2">
             <div class="col-lg-11 text-center">
-                <a href="#" class="d-block mb-4">
-                    <img class="img-fluid img-thumbnail active" style="width:100%" alt="service">
-                </a>
+                <div class="m-3">
+                    <a href="#" class="d-block mb-4">
+                        <img src={{ asset('uploads/service_images/') ~ service.images[0].name }} class="img-fluid img-thumbnail active" style="width:100%" alt="service">
+                    </a>
+                </div>
                 <h3 id="title">{{ service.name }}</h3>
                 <p class="description">{{ service.description }}</p>
             </div>
