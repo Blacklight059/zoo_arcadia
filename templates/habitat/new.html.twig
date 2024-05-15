@@ -3,9 +3,9 @@
 {% block title %}New Habitat{% endblock %}
 
 {% block body %}
-    <h1>Create new Habitat</h1>
+    <h3 class="m-3">Créer un nouvel Habitat</h3>
 
     {{ include('habitat/_form.html.twig') }}
 
-    <a href="{{ path('app_habitat_index') }}">back to list</a>
+    <a class="btn-back m-3" href="{{ path('app_habitat_index') }}">Retouretour à la liste</a>
 {% endblock %}

@@ -24,15 +24,12 @@ class Animal
     #[ORM\ManyToOne(inversedBy: 'animals')]
     private ?Habitat $habitat = null;
 
-    /**
-     * @var Collection<int, Image>
-     */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'animal')]
-    private Collection $image;
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'animal', orphanRemoval: true, cascade: ['persist'])]
+    private Collection $images;
 
     public function __construct()
     {
-        $this->image = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,27 +74,26 @@ class Animal
     }
 
     /**
-     * @return Collection<int, Image>
+     * @return Collection|Image[]
      */
-    public function getImage(): Collection
+    public function getImages(): Collection
     {
-        return $this->image;
+        return $this->images ?? new ArrayCollection();
     }
 
-    public function addImage(Image $image): static
+    public function addImage(Image $image): self
     {
-        if (!$this->image->contains($image)) {
-            $this->image->add($image);
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
             $image->setAnimal($this);
         }
 
         return $this;
     }
 
-    public function removeImage(Image $image): static
+    public function removeImage(Image $image): self
     {
-        if ($this->image->removeElement($image)) {
-            // set the owning side to null (unless already changed)
+        if ($this->images->removeElement($image)) {
             if ($image->getAnimal() === $this) {
                 $image->setAnimal(null);
             }

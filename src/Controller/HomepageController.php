@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\AnimalRepository;
 use App\Repository\HabitatRepository;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,10 +66,26 @@ class HomepageController extends AbstractController
     {
         $habitat = $habitatRepository->findBy(['id' => $id])[0];
 
+        $animal = $habitat->getAnimals();
         return $this->render('homepage/habitat_detail.html.twig', [
             'controller_name' => 'habitatDetail',
             'habitat' => $habitat,
         ]);
     }
+
+    #[Route('/animals/{id}', name: 'animalsDetail')]
+    public function animalDetail(        
+        AnimalRepository $animalRepository,
+        int $id=null
+    ): Response
+    {
+        $animal = $animalRepository->findBy(['id' => $id])[0];
+
+        return $this->render('homepage/animal_detail.html.twig', [
+            'controller_name' => 'animalDetail',
+            'animal' => $animal,
+        ]);
+    }
+
 }
 

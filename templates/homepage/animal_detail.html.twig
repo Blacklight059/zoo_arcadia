@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello animalsController!{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="title-page d-flex align-items-center justify-content-center">
+        <h1>{{ animal.firstname }}</h1>
+    </div>
+</div>
+    <div id ="presentation-services">
+        <h3 class="m-2 p-3">Nos animaux</h3>
+        <div class="d-flex justify-content-center align-items-center m-2">
+            <div class="col-lg-11 text-center">
+                <div class="m-3">
+                    <a href="#" class="d-block mb-4">
+                        <img src={{ asset('uploads/animal_images/') ~ animal.images[0].name }} class="img-fluid img-thumbnail active" style="width:100%" alt="service">
+                    </a>
+                </div>
+                <h3 id="title">{{ animal.firstname }}</h3>
+                <p class="description">{{ animal.breed }}</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

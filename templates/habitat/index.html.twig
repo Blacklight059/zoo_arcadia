@@ -3,7 +3,7 @@
 {% block title %}Habitat index{% endblock %}
 
 {% block body %}
-    <h1>Habitat index</h1>
+    <h3 class="m-3">Index des habitats</h3>
 
     <table class="table">
         <thead>
@@ -33,5 +33,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_habitat_new') }}">Create new</a>
+    <a class="btn col-lg-2 col-md-6 col-10 m-2" href="{{ path('app_habitat_new') }}">Créer un nouvel habitat</a>
+
 {% endblock %}

@@ -8,22 +8,37 @@
         <h1>{{ habitat.name }}</h1>
     </div>
 </div>
-    <div id ="presentation-services">
-        <h3 class="m-2 p-3">Nos habitats</h3>
-        <div class="d-flex justify-content-center align-items-center m-2">
-            <div class="col-lg-11 text-center">
-                <a href="#" class="d-block mb-4">
-                        <img src={{ asset('uploads/habitat_images/') ~ habitat.images[0].name }} class="img-fluid img-thumbnail active" style="width:100%" alt="service">
-                </a>
-                <h3 id="title">{{ habitat.name }}</h3>
-                <p class="description">{{ habitat.description }}</p>
 
-            </div>
+<div id ="presentation-services" class="my-5">
+    <h3 class="m-2 p-3">Nos habitats</h3>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-11 text-center">
+            <a href="#" class="d-block mb-4">
+                <img src="{{ asset('uploads/habitat_images/') ~ habitat.images[0].name }}" class="img-fluid img-thumbnail active" style="width:100%" alt="service">
+            </a>
+            <h3 class="mb-3">{{ habitat.name }}</h3>
+            <p class="description">{{ habitat.description }}</p>
         </div>
     </div>
-    <div id ="presentation-images" class="title-animal d-flex align-items-center justify-content-center">
-        <h3 id="title">Les animaux</h3>
+</div>
+
+<div id ="presentation-images" class="my-5">
+    <h3 class="title-animal d-flex align-items-center justify-content-center">Animaux dans cet habitat :</h3>
+    <div class="row justify-content-between align-items-stretch text-center text-lg-start m-3 p-3">
+        {% for animal in habitat.animals %}
+        <div class="col-lg-3 col-md-5 col-10 m-3 text-center">
+            <div class="m-3">
+                <a href="#" class="d-block mb-4">
+                    <img src="{{ asset('uploads/animal_images/') ~ animal.images[0].name }}" class="img-fluid img-thumbnail active service-image" style="width:100%" alt="service">
+                </a>
+            </div>
+            <h3>{{ animal.firstname }}</h3>
+            <p>{{ animal.breed }}</p>
+            <button class="btn-animal m-2" onclick="window.location='{{ path('animalsDetail', {'id': habitat.id}) }}'" type="button">
+                Voir plus
+            </button>     
+        </div>
+        {% endfor %}
     </div>
-
-
+</div>
 {% endblock %}
