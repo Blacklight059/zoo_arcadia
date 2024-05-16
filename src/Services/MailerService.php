@@ -16,13 +16,25 @@ class MailerService
         $subject = 'This is the Mail subject !',
         $content = '',
         $text = ''
-    ): void{
+    ): void
+    {
         $email = (new Email())
             ->from('noreply@mysite.com')
             ->to($to)
             ->subject($subject)
             ->text($text)
             ->html($content);
+        $this->mailer->send($email);
+    }
+
+    public function sendAccountCreationEmail(string $to): void
+    {
+        $email = (new Email())
+            ->from('noreply@zooarcadia.com')
+            ->to($to)
+            ->subject('Création de votre compte')
+            ->text('Votre compte a été créé avec succès. Veuillez vous rapprocher de l\'administrateur pour obtenir votre mot de passe.');
+
         $this->mailer->send($email);
     }
 }

@@ -4,20 +4,31 @@ namespace App\Controller;
 
 use App\Repository\AnimalRepository;
 use App\Repository\HabitatRepository;
+use App\Repository\OpeninghoursRepository;
 use App\Repository\ServiceRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class HomepageController extends AbstractController
 {
     #[Route('/', name: 'app_homepage')]
-    public function index(): Response
+    public function index(
+        HabitatRepository $habitatRepository,
+        ServiceRepository $serviceRepository,
+        OpeninghoursRepository $openinghoursRepository
+        ): Response
     {
+        $openingHours = $openinghoursRepository->findAll();
+        $habitats = $habitatRepository->findAll();
+        $services = $serviceRepository->findAll();
+
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
+            'openingHours' => $openingHours,
+            'habitats' => $habitats,
+            'services' => $services,
+
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Employee;
 use App\Form\EmployeeType;
 use App\Repository\EmployeeRepository;
+use App\Services\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,12 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/new', name: 'app_employee_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager,
+        MailerService $mailer
+
+    ): Response
     {
         $employee = new Employee();
         $form = $this->createForm(EmployeeType::class, $employee);
@@ -32,6 +38,11 @@ class EmployeeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($employee);
             $entityManager->flush();
+
+            $mailer->sendAccountCreationEmail($employee->getEmail());
+
+            $this->addFlash('success', 'Le compte a été créé avec succès. Un email a été envoyé avec les détails du compte.');
+
 
             return $this->redirectToRoute('app_employee_index', [], Response::HTTP_SEE_OTHER);
         }

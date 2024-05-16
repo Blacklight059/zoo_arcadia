@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Veterinarian;
 use App\Form\VeterinarianType;
 use App\Repository\VeterinarianRepository;
+use App\Services\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,15 +24,25 @@ class VeterinarianController extends AbstractController
     }
 
     #[Route('/new', name: 'app_veterinarian_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(
+        Request $request, 
+        EntityManagerInterface $entityManager,
+        MailerService $mailer
+
+    ): Response
     {
         $veterinarian = new Veterinarian();
         $form = $this->createForm(VeterinarianType::class, $veterinarian);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $entityManager->persist($veterinarian);
             $entityManager->flush();
+
+            $mailer->sendAccountCreationEmail($veterinarian->getEmail());
+
+            $this->addFlash('success', 'Le compte a été créé avec succès. Un email a été envoyé avec les détails du compte.');
 
             return $this->redirectToRoute('app_veterinarian_index', [], Response::HTTP_SEE_OTHER);
         }

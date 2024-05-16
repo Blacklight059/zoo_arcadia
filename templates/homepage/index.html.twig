@@ -16,15 +16,46 @@
 <div id ="presentation-services" class="container-fluid">
     <h3 class="m-2">Nos services</h3>
     <div class="d-flex justify-content-center align-items-center m-2">
-        <div class="col-lg-4 text-center">Visites guidées</div>
-        <div class="col-lg-4 text-center">Visites guidées</div>
-        <div class="col-lg-4 text-center">Visites guidées</div>
+        <div class="row justify-content-between align-items-stretch text-center text-lg-start m-3 p-3">
+            {% for service in services %}
+            <div class="col-lg-3 col-md-5 col-10 m-3 text-center">
+                <div class="m-3">
+                    <a href="#" class="d-block mb-4">
+                        <img src={{ asset('uploads/service_images/') ~ service.images[0].name }} class="img-fluid img-thumbnail active service-image" style="width:100%" alt="service">
+                    </a>
+                </div>
+                <h3 id="title">{{ service.name }}</h3>
+            </div>
+            {% endfor %}
+
+        </div>
     </div>
 </div>
 <div id ="presentation-habitats" class="container-fluid">
     <h2 class="m-2">Les habitats</h2>
     <div class="d-flex justify-content-center align-items-center m-2">
-        <div class="col-lg-12 text-center">Visites guidées</div>
+            {% for habitat in habitats %}
+            <div class="col-lg-3 col-md-5 col-10 m-3 text-center">
+                <div class="image-overlay">
+                    <a href="#" class="d-block mb-4">
+                        <img src="{{ asset('uploads/habitat_images/') ~ habitat.images[0].name }}" class="img-fluid img-thumbnail active service-image" style="width:100%" alt="service">
+                    </a>
+                </div>               
+            </div>
+            {% endfor %}
+    </div>
+</div>
+<div id ="presentation-hours" class="container-fluid">
+    <h2 class="m-2">Les Horaires</h2>
+    <div class="d-inline col-lg-4 col-12">
+        {% for openingHour in openingHours %}
+        <div class="col-lg-3 col-md-5 col-10 text-center">
+            <ul class="list-unstyled openning-hours">
+            <li>{{ openingHour.dayOfWeek }} : {{ openingHour.openningTime|date('H:i') }} - {{ openingHour.closingTime|date('H:i') }}</li>
+            </ul>
+
+        </div>
+        {% endfor %}
     </div>
 </div>
 <div id ="presentation-reviews" class="container-fluid">
