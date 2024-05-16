@@ -8,20 +8,17 @@
         <h1>Nous Contacter</h1>
     </div>
 </div>
+<div class="container-fluid">
+    <div id="contact" class="col-lg-6 col-md-8 col-11 mx-auto mt-4 mb-4 p-3 text-center shadow" >
+        {{ include('contact/_form.html.twig', {'button_label': 'Envoyer'}) }}
 
-    <div id ="contact" class="container">
-        <div id ="contact" class="justify-content-center align-items-center">
-
-            <div class="d-flex justify-content-center align-items-center m-2">
-                <div class="col-lg-3 text-center">Visites guidées
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="col-lg-3 text-center">Visites guidées</div>
-                <div class="col-lg-3 text-center">Visites guidées</div>
-            </div>
-        </div>
     </div>
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+    function onSubmit(token) {
+        document.getElementById("form").submit();
+    }
+    </script>
 {% endblock %}
