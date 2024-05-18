@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Veterinarian;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -62,7 +62,7 @@ class VeterinarianType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Veterinarian::class,
+            'data_class' => User::class,
         ]);
     }
 }

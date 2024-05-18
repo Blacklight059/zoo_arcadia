@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Employee;
+use App\Entity\User;
 use App\Form\EmployeeType;
-use App\Repository\EmployeeRepository;
+use App\Repository\UserRepository;
 use App\Services\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +16,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class EmployeeController extends AbstractController
 {
     #[Route('/', name: 'app_employee_index', methods: ['GET'])]
-    public function index(EmployeeRepository $employeeRepository): Response
+    public function index(UserRepository $userRepository): Response
     {
+        $employees = $userRepository->findByRole('ROLE_EMPLOYEE');
+
         return $this->render('employee/index.html.twig', [
-            'employees' => $employeeRepository->findAll(),
+            'employees' => $employees,
         ]);
     }
 
@@ -31,7 +33,8 @@ class EmployeeController extends AbstractController
 
     ): Response
     {
-        $employee = new Employee();
+        $employee = new User();
+        $employee->setRoles(['ROLE_EMPLOYEE']);
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
 
@@ -54,7 +57,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_employee_show', methods: ['GET'])]
-    public function show(Employee $employee): Response
+    public function show(User $employee): Response
     {
         return $this->render('employee/show.html.twig', [
             'employee' => $employee,
@@ -62,7 +65,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_employee_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $employee, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
@@ -80,7 +83,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_employee_delete', methods: ['POST'])]
-    public function delete(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, User $employee, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$employee->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($employee);

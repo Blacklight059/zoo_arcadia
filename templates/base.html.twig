@@ -60,7 +60,11 @@
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_animal_index') }}">Animaux</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Comptes rendus</a></li>
                             <li class="nav-item">Dashboard</li>
-                        
+                        {% elseif role == 'employee' %}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_employee_index') }}">Employés</a></li>
+
+                        {% elseif role == 'veterinarian' %}
+
                         {% endif %}
                         </ul>
                     </div>

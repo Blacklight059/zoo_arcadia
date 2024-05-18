@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     images_directory: '%kernel.project_dir%/public/uploads/'
+    mongodb_server: "mongodb://localhost:27017"
+    env(MONGODB_URL): ''
+    env(MONGODB_DB): ''
 
 services:    
     ReCaptcha\ReCaptcha:
@@ -30,3 +33,9 @@ services:
     App\Services\MailerService:
             arguments:
                 $mailer: '@Symfony\Component\Mailer\MailerInterface'
+
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\MongoDbSessionHandler:
+        arguments:
+            - '@doctrine_mongodb.odm.default_connection'
+            - { database: '%env(MONGODB_DB)%', collection: 'sessions' } 
+                         

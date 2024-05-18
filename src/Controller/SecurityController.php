@@ -14,12 +14,11 @@ class SecurityController extends AbstractController
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-           $password = 'password1'; // Mot de passe en clair
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hasher le mot de passe
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
             'error' => $error,
-            'hashedPassword' => $hashedPassword,
 
         ]);
     }

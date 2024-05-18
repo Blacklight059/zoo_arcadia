@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Employee;
+use App\Entity\Veterinarian;
 use App\Repository\AnimalRepository;
 use App\Repository\HabitatRepository;
 use App\Repository\OpeninghoursRepository;
 use App\Repository\ServiceRepository;
+use App\Repository\VeterinarianRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -16,18 +20,27 @@ class HomepageController extends AbstractController
     public function index(
         HabitatRepository $habitatRepository,
         ServiceRepository $serviceRepository,
-        OpeninghoursRepository $openinghoursRepository
+        OpeninghoursRepository $openinghoursRepository, 
+        Security $security,
         ): Response
     {
         $openingHours = $openinghoursRepository->findAll();
         $habitats = $habitatRepository->findAll();
         $services = $serviceRepository->findAll();
+        $user = $security->getUser();
+        $role = null;
+        if ($user instanceof Employee) {
+            $role = 'employee';
+        } elseif ($user instanceof Veterinarian) {
+            $role = 'veterinarian';
+        }
 
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
             'openingHours' => $openingHours,
             'habitats' => $habitats,
             'services' => $services,
+            'role' => $role,
 
         ]);
     }

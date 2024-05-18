@@ -73,7 +73,7 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_EMPLOYEE';
 
         return array_unique($roles);
     }
@@ -135,4 +135,5 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }
