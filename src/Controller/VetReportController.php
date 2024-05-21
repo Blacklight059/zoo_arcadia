@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Animal;
+use App\Entity\FoodConsumption;
 use App\Entity\VetReport;
 use App\Form\VetReportType;
+use App\Repository\FoodConsumptionRepository;
 use App\Repository\VetReportRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/vet/report')]
+#[Route('/veterinarian/vet/report')]
 class VetReportController extends AbstractController
 {
     #[Route('/', name: 'app_vet_report_index', methods: ['GET'])]
@@ -104,6 +107,26 @@ class VetReportController extends AbstractController
     {
         return $this->render('vet_report/list.html.twig', [
             'vet_reports' => $vetReportRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/foodList', name: 'app_food_consumption_foodList', methods: ['GET'])]
+    public function foodList(FoodConsumptionRepository $foodConsumptionRepository): Response
+    {
+        return $this->render('vet_report/foodList.html.twig', [
+            'food_consumptions' => $foodConsumptionRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/{id}/food-consumption', name: 'vet_report_by_animal', methods: ['GET'])]
+    public function byAnimal(Animal $animal, EntityManagerInterface $entityManager): Response
+    {
+        $consumptions = $entityManager->getRepository(FoodConsumption::class)
+            ->findBy(['animal' => $animal]);
+
+        return $this->render('vet_report/by_animal.html.twig', [
+            'animal' => $animal,
+            'consumptions' => $consumptions,
         ]);
     }
 }

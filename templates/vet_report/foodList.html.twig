@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FoodConsumption index{% endblock %}
+
+{% block body %}
+    <h1>FoodConsumption index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateTime</th>
+                <th>FoodType</th>
+                <th>Quantity</th>
+                <th>Animal</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for food_consumption in food_consumptions %}
+            <tr>
+                <td>{{ food_consumption.id }}</td>
+                <td>{{ food_consumption.dateTime ? food_consumption.dateTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ food_consumption.foodType }}</td>
+                <td>{{ food_consumption.quantity }}</td>
+                <td>{{ food_consumption.animal.firstname }}</td>
+                <td>
+                    <a href="{{ path('vet_report_by_animal', {'id': food_consumption.animal.id}) }}" class="btn btn-primary">Voir rapports de nourriture</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

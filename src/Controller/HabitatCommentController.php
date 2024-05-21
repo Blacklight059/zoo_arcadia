@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/habitat/comment')]
+#[Route('/veterinarian/habitat/comment')]
 class HabitatCommentController extends AbstractController
 {
     #[Route('/', name: 'app_habitat_comment_index', methods: ['GET'])]

@@ -34,7 +34,7 @@
             </div>
             <h3>{{ animal.firstname }}</h3>
             <p>{{ animal.breed }}</p>
-            <button class="btn-animal m-2" onclick="window.location='{{ path('animalsDetail', {'id': habitat.id}) }}'" type="button">
+            <button class="btn-animal m-2" onclick="window.location='{{ path('animalsDetail', {'id': animal.id}) }}'" type="button">
                 Voir plus
             </button>     
         </div>

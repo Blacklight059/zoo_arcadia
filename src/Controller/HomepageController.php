@@ -8,6 +8,7 @@ use App\Repository\AnimalRepository;
 use App\Repository\HabitatRepository;
 use App\Repository\OpeninghoursRepository;
 use App\Repository\ServiceRepository;
+use App\Services\AnimalVisitService;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -17,6 +18,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HomepageController extends AbstractController
 {
+    private AnimalVisitService $animalVisitService;
+
+    public function __construct(AnimalVisitService $animalVisitService)
+    {
+        $this->animalVisitService = $animalVisitService;
+    }
+
     #[Route('/', name: 'app_homepage')]
     public function index(
         HabitatRepository $habitatRepository,
@@ -117,9 +125,20 @@ class HomepageController extends AbstractController
     {
         $animal = $animalRepository->findBy(['id' => $id])[0];
 
+        if (!$animal) {
+            throw $this->createNotFoundException('The animal does not exist');
+        }
+
+        // Increment the visit counter for the animal
+        $this->animalVisitService->incrementVisit($animal->getFirstname());
+
+        // Get the number of visits
+        $visits = $this->animalVisitService->getVisits($animal->getFirstname());
+
         return $this->render('homepage/animal_detail.html.twig', [
             'controller_name' => 'animalDetail',
             'animal' => $animal,
+            'visits' => $visits,
         ]);
     }
 

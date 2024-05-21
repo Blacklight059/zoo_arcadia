@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\VeterinarianType;
-use App\Repository\FoodConsumptionRepository;
 use App\Repository\UserRepository;
 use App\Services\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/veterinarian')]
+#[Route('/admin/veterinarian')]
 class VeterinarianController extends AbstractController
 {
     #[Route('/', name: 'app_veterinarian_index', methods: ['GET'])]
@@ -73,7 +72,7 @@ class VeterinarianController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_User_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_veterinarian_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         User $veterinarian,

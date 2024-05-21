@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord d'administration{% endblock %}
+
+{% block body %}
+    <h1>Tableau de bord</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom de l'animal</th>
+                <th>Race</th>
+                <th>Nombre de visites</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in animalVisits %}
+                <tr>
+                    <td>{{ item.animal.firstname }}</td>
+                    <td>{{ item.animal.breed }}</td>
+                    <td>{{ item.visits }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

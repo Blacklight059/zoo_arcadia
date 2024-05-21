@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Food Consumption Reports for {{ animal.firstname }}{% endblock %}
+
+{% block body %}
+    <h1>Food Consumption Reports for {{ animal.firstname }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateTime</th>
+                <th>FoodType</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for consumption in consumptions %}
+            <tr>
+                <td>{{ consumption.id }}</td>
+                <td>{{ consumption.dateTime ? consumption.dateTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ consumption.foodType }}</td>
+                <td>{{ consumption.quantity }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

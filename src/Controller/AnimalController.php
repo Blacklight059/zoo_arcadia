@@ -7,6 +7,7 @@ use App\Entity\Image;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
 use App\Repository\ImageRepository;
+use App\Services\AnimalVisitService;
 use App\ServiceImages\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,9 +15,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/animal')]
+#[Route('/admin/animal')]
 class AnimalController extends AbstractController
 {
+    private AnimalVisitService $animalVisitService;
+
+    public function __construct(AnimalVisitService $animalVisitService)
+    {
+        $this->animalVisitService = $animalVisitService;
+    }
+
     #[Route('/', name: 'app_animal_index', methods: ['GET'])]
     public function index(AnimalRepository $animalRepository): Response
     {
@@ -62,14 +70,6 @@ class AnimalController extends AbstractController
         return $this->render('animal/new.html.twig', [
             'animal' => $animal,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_animal_show', methods: ['GET'])]
-    public function show(Animal $animal): Response
-    {
-        return $this->render('animal/show.html.twig', [
-            'animal' => $animal,
         ]);
     }
 
@@ -129,5 +129,21 @@ class AnimalController extends AbstractController
         }
 
         return $this->redirectToRoute('app_animal_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+    #[Route('/{id}', name: 'animalsDetail', methods: ['GET'])]
+    public function show(Animal $animal): Response
+    {
+        // Increment the visit counter for the animal
+        $this->animalVisitService->incrementVisit($animal->getFirstname());
+
+        // Get the number of visits
+        $visits = $this->animalVisitService->getVisits($animal->getFirstname());
+
+        return $this->render('animal/show.html.twig', [
+            'animal' => $animal,
+            'visits' => $visits,
+        ]);
     }
 }

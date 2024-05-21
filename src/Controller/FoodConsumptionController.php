@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Animal;
 use App\Entity\FoodConsumption;
 use App\Form\FoodConsumption1Type;
-use App\Repository\AnimalRepository;
 use App\Repository\FoodConsumptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
