@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Review List{% endblock %}
+
+{% block body %}
+    <h1>Review List</h1>
+
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>{{ review.pseudo }}</strong> ({{ review.email }}): 
+                {{ review.content }} - {{ review.rating }}
+                <form method="post" action="{{ path('review_validate', {'id': review.id}) }}">
+                    <button type="submit">Validate</button>
+                </form>
+                <form method="post" action="{{ path('review_delete', {'id': review.id}) }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% else %}
+            <li>No reviews found.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

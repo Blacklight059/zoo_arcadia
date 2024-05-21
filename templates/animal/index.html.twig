@@ -27,8 +27,14 @@
                     {% endfor %}
                 </td>
                 <td>
+
+                {% if app.user.roles[0] == 'ROLE_VETERINARIAN' %}
+
+                    <a href="{{ path('food_consumption_by_animal', {'id': animal.id}) }}">View Food Consumptions</a>
+                {% elseif app.user.roles[0] == 'ROLE_EMPLOYEE' %}
                     <a href="{{ path('app_animal_show', {'id': animal.id}) }}">show</a>
                     <a href="{{ path('app_animal_edit', {'id': animal.id}) }}">edit</a>
+                {% endif %}
                 </td>
             </tr>
         {% else %}

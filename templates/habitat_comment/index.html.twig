@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HabitatComment index{% endblock %}
+
+{% block body %}
+    <h1>HabitatComment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Comment</th>
+                <th>CommentDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for habitat_comment in habitat_comments %}
+            <tr>
+                <td>{{ habitat_comment.id }}</td>
+                <td>{{ habitat_comment.comment }}</td>
+                <td>{{ habitat_comment.commentDate ? habitat_comment.commentDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_habitat_comment_show', {'id': habitat_comment.id}) }}">show</a>
+                    <a href="{{ path('app_habitat_comment_edit', {'id': habitat_comment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_habitat_comment_new') }}">Create new</a>
+{% endblock %}

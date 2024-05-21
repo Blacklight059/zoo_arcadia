@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New VetReport{% endblock %}
+
+{% block body %}
+    <h1>Create new VetReport</h1>
+
+    {{ include('vet_report/_form.html.twig') }}
+
+    <a href="{{ path('app_vet_report_index') }}">back to list</a>
+{% endblock %}

@@ -2,41 +2,51 @@
 
 namespace App\Controller;
 
-use App\Entity\Review;
-use App\Repository\ReviewRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Document\Review;
+use App\Form\ReviewType;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/review')]
 class ReviewController extends AbstractController
 {
-    #[Route('/', name: 'app_review_index', methods: ['GET'])]
-    public function index(ReviewRepository $reviewRepository): Response
+    #[Route('/reviews', name: 'review_list', methods: ['GET'])]
+    public function list(DocumentManager $dm): Response
     {
-        return $this->render('review/index.html.twig', [
-            'reviews' => $reviewRepository->findAll(),
+        $reviews = $dm->getRepository(Review::class)->findAll();
+
+        return $this->render('review/list.html.twig', [
+            'reviews' => $reviews,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_review_show', methods: ['GET'])]
-    public function show(Review $review): Response
+    #[Route('/review/validate/{id}', name: 'review_validate', methods: ['POST'])]
+    public function validateReview(DocumentManager $dm, Review $review): Response
     {
-        return $this->render('review/show.html.twig', [
-            'review' => $review,
-        ]);
+        $review->setValidate(true);
+        $dm->flush();
+
+        return $this->redirectToRoute('review_list');
     }
 
-    #[Route('/{id}', name: 'app_review_delete', methods: ['POST'])]
-    public function delete(Request $request, Review $review, EntityManagerInterface $entityManager): Response
+    #[Route('/review/delete/{id}', name: 'review_delete', methods: ['POST'])]
+    public function deleteReview(DocumentManager $dm, Review $review): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$review->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($review);
-            $entityManager->flush();
-        }
+        $dm->remove($review);
+        $dm->flush();
 
-        return $this->redirectToRoute('app_review_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('review_list');
+    }
+
+    #[Route('/', name: 'homepage', methods: ['GET'])]
+    public function homepage(DocumentManager $dm): Response
+    {
+        $validatedReviews = $dm->getRepository(Review::class)->findBy(['validate' => true]);
+
+        return $this->render('home/index.html.twig', [
+            'reviews' => $validatedReviews,
+        ]);
     }
 }

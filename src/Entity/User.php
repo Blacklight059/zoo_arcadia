@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,6 +38,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $firstname = null;
+
+    /**
+     * @var Collection<int, VetReport>
+     */
+    #[ORM\OneToMany(targetEntity: VetReport::class, mappedBy: 'veterinarian')]
+    private Collection $vetReports;
+
+    /**
+     * @var Collection<int, HabitatComment>
+     */
+    #[ORM\OneToMany(targetEntity: HabitatComment::class, mappedBy: 'veterinarian')]
+    private Collection $habitatComments;
+
+    public function __construct()
+    {
+        $this->vetReports = new ArrayCollection();
+        $this->habitatComments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -132,6 +152,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstname(string $firstname): static
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, VetReport>
+     */
+    public function getVetReports(): Collection
+    {
+        return $this->vetReports;
+    }
+
+    public function addVetReport(VetReport $vetReport): static
+    {
+        if (!$this->vetReports->contains($vetReport)) {
+            $this->vetReports->add($vetReport);
+            $vetReport->setVeterinarian($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVetReport(VetReport $vetReport): static
+    {
+        if ($this->vetReports->removeElement($vetReport)) {
+            // set the owning side to null (unless already changed)
+            if ($vetReport->getVeterinarian() === $this) {
+                $vetReport->setVeterinarian(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HabitatComment>
+     */
+    public function getHabitatComments(): Collection
+    {
+        return $this->habitatComments;
+    }
+
+    public function addHabitatComment(HabitatComment $habitatComment): static
+    {
+        if (!$this->habitatComments->contains($habitatComment)) {
+            $this->habitatComments->add($habitatComment);
+            $habitatComment->setVeterinarian($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHabitatComment(HabitatComment $habitatComment): static
+    {
+        if ($this->habitatComments->removeElement($habitatComment)) {
+            // set the owning side to null (unless already changed)
+            if ($habitatComment->getVeterinarian() === $this) {
+                $habitatComment->setVeterinarian(null);
+            }
+        }
 
         return $this;
     }

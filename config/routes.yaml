@@ -15,3 +15,9 @@ app_employee_dashboard:
     controller: App\Controller\employeeController::dashboard
     requirements:
         _role: ROLE_EMPLOYEE
+
+app_vet_report_list:
+    path: vet/report/list
+    controller: App\Controller\VetReportController::list
+    requirements:
+        _role: ROLE_ADMIN

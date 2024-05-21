@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Employee;
-use App\Entity\Veterinarian;
+use App\Document\Review;
+use App\Form\ReviewType;
 use App\Repository\AnimalRepository;
 use App\Repository\HabitatRepository;
 use App\Repository\OpeninghoursRepository;
 use App\Repository\ServiceRepository;
-use App\Repository\VeterinarianRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -22,17 +23,26 @@ class HomepageController extends AbstractController
         ServiceRepository $serviceRepository,
         OpeninghoursRepository $openinghoursRepository, 
         Security $security,
+        Request $request, 
+        DocumentManager $dm
         ): Response
     {
         $openingHours = $openinghoursRepository->findAll();
+        $reviews = $dm->getRepository(Review::class)->findBy(['validate' => true]);
         $habitats = $habitatRepository->findAll();
         $services = $serviceRepository->findAll();
-        $user = $security->getUser();
         $role = null;
-        if ($user instanceof Employee) {
-            $role = 'employee';
-        } elseif ($user instanceof Veterinarian) {
-            $role = 'veterinarian';
+
+        $review = new Review();
+
+        $form = $this->createForm(ReviewType::class, $review);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $dm->persist($review);
+            $dm->flush();
+
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('homepage/index.html.twig', [
@@ -41,6 +51,8 @@ class HomepageController extends AbstractController
             'habitats' => $habitats,
             'services' => $services,
             'role' => $role,
+            'form' => $form->createView(),
+            'reviews' => $reviews,
 
         ]);
     }

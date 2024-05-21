@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\VeterinarianType;
+use App\Repository\FoodConsumptionRepository;
 use App\Repository\UserRepository;
 use App\Services\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,6 +26,7 @@ class VeterinarianController extends AbstractController
             'veterinarians' => $veterinarians,
         ]);
     }
+    
 
     #[Route('/new', name: 'app_veterinarian_new', methods: ['GET', 'POST'])]
     public function new(
@@ -115,4 +117,5 @@ class VeterinarianController extends AbstractController
 
         return $this->redirectToRoute('app_veterinarian_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

@@ -1,0 +1,35 @@
+{# templates/food_consumption/by_animal.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Food Consumption for {{ animal.firstname }}{% endblock %}
+
+{% block body %}
+    <h1>Food Consumption for {{ animal.firstname }}</h1>
+
+    <h2>Animal Details</h2>
+    <p>Breed: {{ animal.breed }}</p>
+    <p>Habitat: {{ animal.habitat.name }}</p>
+
+    <h2>Food Consumption Records</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date and Time</th>
+                <th>Food Type</th>
+                <th>Quantity</th>
+                <th>Recorded by Employee</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for consumption in consumptions %}
+                <tr>
+                    <td>{{ consumption.dateTime|date('Y-m-d H:i') }}</td>
+                    <td>{{ consumption.foodType }}</td>
+                    <td>{{ consumption.quantity }}</td>
+                    <td>{{ consumption.employee.name }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

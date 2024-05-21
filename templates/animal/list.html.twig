@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Animals</h1>
+<ul>
+    {% for animal in animals %}
+        <li>
+            {{ animal.firstname }} ({{ animal.breed }})
+            <a href="{{ path('app_veterinary_report_new', { 'animalId': animal.id }) }}">Add Report</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

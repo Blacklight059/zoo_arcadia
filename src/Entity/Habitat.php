@@ -31,10 +31,17 @@ class Habitat
     #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'habitat')]
     private Collection $animals;
 
+    /**
+     * @var Collection<int, HabitatComment>
+     */
+    #[ORM\OneToMany(targetEntity: HabitatComment::class, mappedBy: 'habitat')]
+    private Collection $habitatComments;
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->habitatComments = new ArrayCollection();
 
     }
 
@@ -121,6 +128,36 @@ class Habitat
             // set the owning side to null (unless already changed)
             if ($animal->getHabitat() === $this) {
                 $animal->setHabitat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, HabitatComment>
+     */
+    public function getHabitatComments(): Collection
+    {
+        return $this->habitatComments;
+    }
+
+    public function addHabitatComment(HabitatComment $habitatComment): static
+    {
+        if (!$this->habitatComments->contains($habitatComment)) {
+            $this->habitatComments->add($habitatComment);
+            $habitatComment->setHabitat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHabitatComment(HabitatComment $habitatComment): static
+    {
+        if ($this->habitatComments->removeElement($habitatComment)) {
+            // set the owning side to null (unless already changed)
+            if ($habitatComment->getHabitat() === $this) {
+                $habitatComment->setHabitat(null);
             }
         }
 

@@ -1,4 +1,11 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-lg m-3 g-recaptcha" 
+        data-sitekey="reCAPTCHA_site_key" 
+        data-callback='onSubmit' 
+        data-action='submit' 
+        id="btn-connexion">
+            {{ button_label|default('Envoyer') }}
+        </button>
+    {{ form_end(form) }}
+    

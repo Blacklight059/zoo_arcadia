@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Form;
 
+use App\Document\Review;
 use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
@@ -9,12 +11,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ReviewType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('rating',TextType::class, [
@@ -31,44 +31,27 @@ class ReviewType extends AbstractType
                 ],
                 'label' => 'Note'
             ])
-            ->add('email',EmailType::class, [
-                'attr' => [
-                    'class' => 'form-control m-2'
-                ],
-                'label' => 'E-mail'
-            ])
             ->add('pseudo',TextType::class, [
                 'attr' => [
                     'class' => 'form-control m-2'
                 ],
                 'label' => 'Pseudo'
             ])
-            ->add('comment', TextareaType::class, [
-                'required' => true, 
-                'label' => 'Votre message',
-                'constraints' => [
-                    new NotBlank([
-                       'message' => 'Veuillez saisir votre message'
-                    ]),
-                    new Length([
-                       'min' => 6,
-                       'minMessage' => 'Le message doit contenir au minimum {{ limit }} caractères'
-                    ]),
-                ],
-                'attr' => [
-                    'class' => 'form-control m-2',
-                    'rows' => "10",
-                    'cols' => "50",
-                ],
+            ->add('email', EmailType::class, [
+                'label' => 'Email',
             ])
-            ->add('captcha', Recaptcha3Type::class, [
-                'constraints' => new Recaptcha3(),
-                'locale' => 'fr',
+            ->add('content', TextareaType::class, [
+                'label' => 'Content',
             ])
+
         ;
+
     }
-    public function configureOptions(OptionsResolver $resolver)
+
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            'data_class' => Review::class,
+        ]);
     }
 }

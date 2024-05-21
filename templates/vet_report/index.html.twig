@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VetReport index{% endblock %}
+
+{% block body %}
+    <h1>VetReport index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>AnimalState</th>
+                <th>FoodOffered</th>
+                <th>FoodWeight</th>
+                <th>VisitDate</th>
+                <th>StateDetails</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vet_report in vet_reports %}
+            <tr>
+                <td>{{ vet_report.id }}</td>
+                <td>{{ vet_report.animalState }}</td>
+                <td>{{ vet_report.foodOffered }}</td>
+                <td>{{ vet_report.foodWeight }}</td>
+                <td>{{ vet_report.visitDate ? vet_report.visitDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ vet_report.stateDetails }}</td>
+                <td>
+                    <a href="{{ path('app_vet_report_show', {'id': vet_report.id}) }}">show</a>
+                    <a href="{{ path('app_vet_report_edit', {'id': vet_report.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_vet_report_new') }}">Create new</a>
+{% endblock %}

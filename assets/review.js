@@ -5,7 +5,7 @@ import './star-rating.min.js';
 import './styles/app.css';
 import './styles/star-rating.css';
 
-console.log('This log comes from assets/review.js - welcome to AssetMapper! 🎉');
+console.log('This log comes from assets/review.js - welcome to Review 🎉');
 
 document.addEventListener('DOMContentLoaded', function() {
     // Écouter le clic sur le bouton "Laisser un avis"
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var formData = new FormData(this);
   
         // Envoyer les données via une requête AJAX
-        fetch('{{ path("roomDetail") }}', {
+        fetch('{{ path("app_homepage") }}', {
             method: 'POST',
             body: formData
         })
@@ -36,4 +36,4 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Erreur lors de la soumission du formulaire:', error);
         });
     });
-  });
+});

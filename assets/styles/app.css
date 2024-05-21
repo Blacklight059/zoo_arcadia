@@ -196,3 +196,25 @@ body {
     height: 300px; 
     object-fit: cover; 
 }
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
+    font-size: 2em;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.rating input[type="radio"]:checked ~ label {
+    color: #f70;
+}
+
+.rating label:hover,
+.rating label:hover ~ label,
+.rating input[type="radio"]:checked ~ label:hover,
+.rating input[type="radio"]:checked ~ label:hover ~ label,
+.rating input[type="radio"]:checked ~ label ~ label {
+    color: #fc0;
+}

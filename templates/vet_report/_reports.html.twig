@@ -1,0 +1,39 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Animal</th>
+            <th scope="col">État</th>
+            <th scope="col">Nourriture proposée</th>
+            <th scope="col">Grammage de la nourriture</th>
+            <th scope="col">Date de passage</th>
+            <th scope="col">Détails</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if reports is not null %}
+
+        {% for report in reports %}
+            <tr>
+                <td>{{ report.id }}</td>
+                {% if report.animal is not null %}
+                    <td>{{ report.animal.firstname }}</td>
+                {% else %}
+                    <td>Aucun animal associé</td>
+                {% endif %}
+                <td>{{ report.animalState }}</td>
+                <td>{{ report.foodOffered }}</td>
+                <td>{{ report.foodWeight }}</td>
+                <td>{{ report.visitDate|date('d/m/Y') }}</td>
+                <td>{{ report.stateDetails }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun rapport vétérinaire trouvé.</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <td>Aucun rapport associé</td>
+    {% endif %}
+    </tbody>
+</table>
