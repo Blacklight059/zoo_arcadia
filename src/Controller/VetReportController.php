@@ -118,7 +118,7 @@ class VetReportController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/food-consumption', name: 'vet_report_by_animal', methods: ['GET'])]
+    #[Route('/animal/{id}', name: 'vet_report_by_animal', methods: ['GET'])]
     public function byAnimal(Animal $animal, EntityManagerInterface $entityManager): Response
     {
         $consumptions = $entityManager->getRepository(FoodConsumption::class)

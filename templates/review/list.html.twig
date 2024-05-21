@@ -5,21 +5,28 @@
 {% block body %}
     <h1>Review List</h1>
 
-    <ul>
+    <ul class="list-group">
         {% for review in reviews %}
-            <li>
-                <strong>{{ review.pseudo }}</strong> ({{ review.email }}): 
-                {{ review.content }} - {{ review.rating }}
-                <form method="post" action="{{ path('review_validate', {'id': review.id}) }}">
-                    <button type="submit">Validate</button>
-                </form>
-                <form method="post" action="{{ path('review_delete', {'id': review.id}) }}">
-                    <button type="submit">Delete</button>
-                </form>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ review.pseudo }}</strong> ({{ review.email }}): 
+                    {{ review.content }} - <span class="badge badge-primary badge-pill">{{ review.rating }}</span>
+                </div>
+                <div>
+                    {% if review.validate %}
+                        <span class="text-success">Avis validé</span>
+                    {% else %}
+                        <form method="post" action="{{ path('review_validate', {'id': review.id}) }}" class="d-inline-block">
+                            <button type="submit" class="btn btn-success btn-sm">Validate</button>
+                        </form>
+                    {% endif %}
+                    <form method="post" action="{{ path('review_delete', {'id': review.id}) }}" class="d-inline-block ml-2">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
             </li>
         {% else %}
-            <li>No reviews found.</li>
+            <li class="list-group-item">No reviews found.</li>
         {% endfor %}
     </ul>
-
 {% endblock %}

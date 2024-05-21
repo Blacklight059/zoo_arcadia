@@ -3,14 +3,14 @@
 namespace App\Form;
 
 use App\Document\Review;
-use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
-use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ReviewType extends AbstractType
 {
@@ -38,12 +38,29 @@ class ReviewType extends AbstractType
                 'label' => 'Pseudo'
             ])
             ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'form-control m-2'
+                ],
                 'label' => 'Email',
             ])
             ->add('content', TextareaType::class, [
-                'label' => 'Content',
+                'required' => true, 
+                'label' => 'Votre message',
+                'constraints' => [
+                    new NotBlank([
+                       'message' => 'Veuillez saisir votre message'
+                    ]),
+                    new Length([
+                       'min' => 6,
+                       'minMessage' => 'Le message doit contenir au minimum {{ limit }} caractères'
+                    ]),
+                ],
+                'attr' => [
+                    'class' => 'form-control m-2',
+                    'rows' => "10",
+                    'cols' => "50",
+                ],
             ])
-
         ;
 
     }

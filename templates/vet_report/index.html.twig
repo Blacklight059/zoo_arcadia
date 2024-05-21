@@ -27,7 +27,6 @@
                 <td>{{ vet_report.visitDate ? vet_report.visitDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ vet_report.stateDetails }}</td>
                 <td>
-                    <a href="{{ path('app_vet_report_show', {'id': vet_report.id}) }}">show</a>
                     <a href="{{ path('app_vet_report_edit', {'id': vet_report.id}) }}">edit</a>
                 </td>
             </tr>

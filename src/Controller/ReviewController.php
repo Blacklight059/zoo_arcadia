@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReviewController extends AbstractController
 {
-    #[Route('/reviews', name: 'review_list', methods: ['GET'])]
+    #[Route('/employee/reviews', name: 'review_list', methods: ['GET'])]
     public function list(DocumentManager $dm): Response
     {
         $reviews = $dm->getRepository(Review::class)->findAll();
@@ -22,7 +22,7 @@ class ReviewController extends AbstractController
         ]);
     }
 
-    #[Route('/review/validate/{id}', name: 'review_validate', methods: ['POST'])]
+    #[Route('/employee/review/validate/{id}', name: 'review_validate', methods: ['POST'])]
     public function validateReview(DocumentManager $dm, Review $review): Response
     {
         $review->setValidate(true);
@@ -31,7 +31,7 @@ class ReviewController extends AbstractController
         return $this->redirectToRoute('review_list');
     }
 
-    #[Route('/review/delete/{id}', name: 'review_delete', methods: ['POST'])]
+    #[Route('/employee/review/delete/{id}', name: 'review_delete', methods: ['POST'])]
     public function deleteReview(DocumentManager $dm, Review $review): Response
     {
         $dm->remove($review);
