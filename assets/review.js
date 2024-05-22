@@ -2,7 +2,7 @@ import './bootstrap.js';
 import './star-rating.js';
 import './star-rating.min.js';
 
-import './styles/app.css';
+import './styles/app.scss';
 import './styles/star-rating.css';
 
 console.log('This log comes from assets/review.js - welcome to Review 🎉');

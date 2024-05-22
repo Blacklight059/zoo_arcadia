@@ -16,9 +16,9 @@
 <div id ="presentation-services" class="container-fluid">
     <h3 class="m-2">Nos services</h3>
     <div class="d-flex justify-content-center align-items-center m-2">
-        <div class="row justify-content-between align-items-stretch text-center text-lg-start m-3 p-3">
+        <div class="row justify-content-center align-items-center text-center m-3 p-3">
             {% for service in services %}
-            <div class="col-lg-3 col-md-5 col-10 m-3 text-center">
+            <div class="col-lg-4 col-md-10 col-12 m-3 text-center">
                 <div class="m-3">
                     <a href="#" class="d-block mb-4">
                         <img src={{ asset('uploads/service_images/') ~ service.images[0].name }} class="img-fluid img-thumbnail active service-image" style="width:100%" alt="service">
@@ -33,9 +33,9 @@
 </div>
 <div id ="presentation-habitats" class="container-fluid">
     <h2 class="m-2">Les habitats</h2>
-    <div class="d-flex justify-content-center align-items-center m-2">
+        <div class="row justify-content-center align-items-center text-center m-3 p-3">
             {% for habitat in habitats %}
-            <div class="col-lg-3 col-md-5 col-10 m-3 text-center">
+            <div class="col-lg-4 col-md-10 col-12 m-3 text-center">
                 <div class="image-overlay">
                     <a href="#" class="d-block mb-4">
                         <img src="{{ asset('uploads/habitat_images/') ~ habitat.images[0].name }}" class="img-fluid img-thumbnail active service-image" style="width:100%" alt="service">
@@ -61,9 +61,9 @@
 
 <div id="presentation-reviews" class="container-fluid">
     <h2 class="m-2">Vos avis</h2>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center text-center m-3 p-3">
         {% for review in reviews %}
-            <div class="col-lg-3 col-md-5 col-10 m-3 text-center">
+            <div class="col-lg-4 col-md-10 col-12 m-3 text-center">
                 <div class="card">
                     <div class="card-body">
                         <div class="rating-container theme-krajee-fas rating-sm m-3">

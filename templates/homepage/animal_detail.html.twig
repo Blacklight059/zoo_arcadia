@@ -19,6 +19,15 @@
                 </div>
                 <h3 id="title">{{ animal.firstname }}</h3>
                 <p class="description">{{ animal.breed }}</p>
+    {% if latestReport is not null %}
+        <h2>Dernier avis du vétérinaire</h2>
+        <p>
+            <strong>Date de visite :</strong> {{ latestReport.visitDate|date('Y-m-d H:i') }}<br>
+            <strong>État de l'animal :</strong> {{ latestReport.animalState }}<br>
+        </p>
+    {% else %}
+        <p>Aucun rapport vétérinaire trouvé pour cet animal.</p>
+    {% endif %}
             </div>
         </div>
     </div>

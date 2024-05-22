@@ -9,10 +9,10 @@
     </div>
 </div>
 
-<div id ="presentation-services" class="my-5">
+<div id ="presentation-services" class="py-5">
     <h3 class="m-2 p-3">Nos habitats</h3>
     <div class="row justify-content-center align-items-center">
-        <div class="col-lg-11 text-center">
+        <div class="col-11 text-center">
             <a href="#" class="d-block mb-4">
                 <img src="{{ asset('uploads/habitat_images/') ~ habitat.images[0].name }}" class="img-fluid img-thumbnail active" style="width:100%" alt="service">
             </a>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<div id ="presentation-images" class="my-5">
+<div id ="presentation-images" class="py-5">
     <h3 class="title-animal d-flex align-items-center justify-content-center">Animaux dans cet habitat :</h3>
     <div class="row justify-content-between align-items-stretch text-center text-lg-start m-3 p-3">
         {% for animal in habitat.animals %}

@@ -125,6 +125,15 @@ class HomepageController extends AbstractController
     {
         $animal = $animalRepository->findBy(['id' => $id])[0];
 
+        $vetReports = $animal->getVetReports()->toArray();
+        usort($vetReports, function($a, $b) {
+            return $b->getVisitDate() <=> $a->getVisitDate();
+        });
+
+        // Récupérer le dernier rapport vétérinaire s'il existe
+        $latestReport = !empty($vetReports) ? $vetReports[0] : null;
+
+
         if (!$animal) {
             throw $this->createNotFoundException('The animal does not exist');
         }
@@ -139,6 +148,7 @@ class HomepageController extends AbstractController
             'controller_name' => 'animalDetail',
             'animal' => $animal,
             'visits' => $visits,
+            'latestReport' => $latestReport,
         ]);
     }
 
