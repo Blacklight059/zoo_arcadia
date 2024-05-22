@@ -1,0 +1,33 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+    RewriteEngine On
+
+    # Block access to .htaccess and .htpasswd files
+    RewriteRule ^\.ht - [F,L]
+
+    # Redirect all requests to index.php except for existing files and directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+
+    # Preserve the Authorization header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    <IfModule mod_alias.c>
+        # Show a 404 error if mod_rewrite is not enabled
+        RedirectMatch 404 ^/.*$
+    </IfModule>
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Enable CORS
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+<IfModule mod_deflate.c>
+    # Enable compression
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/json application/javascript
+</IfModule>
