@@ -14,6 +14,9 @@ Encore
     .setPublicPath('/build')
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
+    .addEntry('star-rating', './assets/star-rating.js')
+    .addStyleEntry('app-style', './assets/styles/app.scss')
+    .addStyleEntry('star-rating-style', './assets/styles/star-rating.css')
 
     /*
      * ENTRY CONFIG

@@ -13,24 +13,34 @@ document.addEventListener('DOMContentLoaded', function() {
         // Afficher le formulaire
         document.getElementById('reviewFormContainer').style.display = 'block';
     });
-  
+
     // Écouter la soumission du formulaire
     document.getElementById('reviewForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Empêcher la soumission du formulaire
-  
-        // Récupérer les données du formulaire
-        var formData = new FormData(this);
-  
-        // Envoyer les données via une requête AJAX
-        fetch('{{ path("app_homepage") }}', {
+
+        var formData = new FormData(event.target);
+        var submitUrl = document.getElementById('reviewForm').getAttribute('data-submit-url');
+        
+        console.log(Object.fromEntries(formData.entries())); // Juste pour le debug
+
+        fetch(submitUrl, {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
-            // Traiter la réponse
             console.log(data);
-            // Par exemple, afficher un message de succès ou recharger la page
+            // Traiter la réponse
+            // Afficher le message de confirmation
+            document.getElementById('reviewSuccessMessage').innerText = 'Merci d\'avoir laissé un avis';
+            document.getElementById('reviewSuccessMessage').style.display = 'block';
+            // Cacher le formulaire après la soumission
+            document.getElementById('reviewFormContainer').style.display = 'none';
         })
         .catch(error => {
             console.error('Erreur lors de la soumission du formulaire:', error);

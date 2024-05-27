@@ -11,10 +11,11 @@ use App\Repository\ServiceRepository;
 use App\Services\AnimalVisitService;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Psr\Log\LoggerInterface;
+
 
 class HomepageController extends AbstractController
 {
@@ -23,35 +24,30 @@ class HomepageController extends AbstractController
     public function __construct(AnimalVisitService $animalVisitService)
     {
         $this->animalVisitService = $animalVisitService;
+
     }
+
 
     #[Route('/', name: 'app_homepage')]
     public function index(
         HabitatRepository $habitatRepository,
         ServiceRepository $serviceRepository,
         OpeninghoursRepository $openinghoursRepository, 
-        Security $security,
         Request $request, 
-        DocumentManager $dm
+        DocumentManager $dm,
+        LoggerInterface $logger
         ): Response
     {
+        $logger->info(json_encode(json_decode($request->getContent(), true)));
         $openingHours = $openinghoursRepository->findAll();
+
         $reviews = $dm->getRepository(Review::class)->findBy(['validate' => true]);
         $habitats = $habitatRepository->findAll();
         $services = $serviceRepository->findAll();
         $role = null;
 
         $review = new Review();
-
         $form = $this->createForm(ReviewType::class, $review);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $dm->persist($review);
-            $dm->flush();
-
-            return $this->redirectToRoute('homepage');
-        }
 
         return $this->render('homepage/index.html.twig', [
             'controller_name' => 'HomepageController',
@@ -63,6 +59,23 @@ class HomepageController extends AbstractController
             'reviews' => $reviews,
 
         ]);
+    }
+
+    #[Route('/submit-review', name: 'app_submit_review', methods: ['POST'])]
+    public function submitReview(Request $request, DocumentManager $dm): Response
+    {
+        $review = new Review();
+        $form = $this->createForm(ReviewType::class, $review);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $dm->persist($review);
+            $dm->flush();
+
+            return $this->json(['message' => 'Merci d\'avoir laissé un avis'], 200);
+        }
+
+        return $this->json(['message' => 'Erreur lors de la soumission du formulaire'], 400);
     }
 
     #[Route('/services', name: 'app_services')]
@@ -91,8 +104,9 @@ class HomepageController extends AbstractController
     }
 
     #[Route('/habitats', name: 'app_habitats')]
-    public function habitats(HabitatRepository $habitatRepository): Response
+    public function habitats(Request $request, HabitatRepository $habitatRepository): Response
     {
+        dump($request);
         $habitats = $habitatRepository->findAll();
 
         return $this->render('homepage/habitat.html.twig', [

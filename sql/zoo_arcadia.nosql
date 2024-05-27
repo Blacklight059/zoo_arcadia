@@ -1,0 +1,63 @@
+{
+  "collection": "animal_visits",
+  "schema": {
+    "bsonType": "object",
+    "required": ["animalId", "visitDate", "veterinarianId"],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "animalId": {
+        "bsonType": "objectId",
+        "description": "ID of the animal being visited"
+      },
+      "visitDate": {
+        "bsonType": "date",
+        "description": "Date of the visit"
+      },
+      "notes": {
+        "bsonType": "string",
+        "description": "Notes taken during the visit"
+      },
+      "veterinarianId": {
+        "bsonType": "objectId",
+        "description": "ID of the veterinarian conducting the visit"
+      }
+    }
+  }
+}
+
+{
+  "collection": "reviews",
+  "schema": {
+    "bsonType": "object",
+    "required": ["rating", "pseudo", "email", "content"],
+    "properties": {
+      "_id": {
+        "bsonType": "objectId"
+      },
+      "rating": {
+        "bsonType": "int",
+        "description": "Rating given in the review",
+        "minimum": 0,
+        "maximum": 5
+      },
+      "pseudo": {
+        "bsonType": "string",
+        "description": "Pseudo of the reviewer"
+      },
+      "email": {
+        "bsonType": "string",
+        "description": "Email of the reviewer"
+      },
+      "content": {
+        "bsonType": "string",
+        "description": "Content of the review"
+      },
+      "createdAt": {
+        "bsonType": "date",
+        "description": "Date when the review was created"
+      }
+    }
+  }
+}

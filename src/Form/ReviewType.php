@@ -17,7 +17,7 @@ class ReviewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('rating',TextType::class, [
+            ->add('rating', TextType::class, [
                 'attr' => [                
                     'id' => "input-21d",
                     'value' => "1",
@@ -31,7 +31,7 @@ class ReviewType extends AbstractType
                 ],
                 'label' => 'Note'
             ])
-            ->add('pseudo',TextType::class, [
+            ->add('pseudo', TextType::class, [
                 'attr' => [
                     'class' => 'form-control m-2'
                 ],
