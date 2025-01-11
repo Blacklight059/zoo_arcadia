@@ -16,21 +16,25 @@ class VetReportRepository extends ServiceEntityRepository
         parent::__construct($registry, VetReport::class);
     }
 
-    public function findByCriteria(array $criteria)
+    public function findByCriteria(array $criteria): array
     {
-        $queryBuilder = $this->createQueryBuilder('vr');
-
-        if (!empty($criteria['animal.firstname'])) {
-            $queryBuilder->andWhere('vr.animal.firstname LIKE :animalName')
-                        ->setParameter('animalName', '%'.$criteria['animal.firstname'].'%');
+        $queryBuilder = $this->createQueryBuilder('vr')
+            ->leftJoin('vr.animal', 'a')
+            ->addSelect('a'); // Inclure les données liées à l'animal
+    
+        if (!empty($criteria['animalName'])) {
+            $queryBuilder->andWhere('a.firstname LIKE :animalName')
+                ->setParameter('animalName', '%' . $criteria['animalName'] . '%');
         }
+    
         if (!empty($criteria['visitDate'])) {
             $queryBuilder->andWhere('vr.visitDate = :visitDate')
-                        ->setParameter('visitDate', $criteria['visitDate']);
+                ->setParameter('visitDate', $criteria['visitDate']);
         }
-
+    
         return $queryBuilder->getQuery()->getResult();
     }
+    
 
     //    /**
     //     * @return VetReport[] Returns an array of VetReport objects

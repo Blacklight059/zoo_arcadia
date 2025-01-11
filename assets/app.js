@@ -8,10 +8,11 @@ import './styles/app.scss';
 import 'bootstrap';
 // start the Stimulus application
 import './bootstrap';
+import '@popperjs/core';
 
 // or you can include specific pieces
 // require('bootstrap/js/dist/tooltip');
-// require('bootstrap/js/dist/popover');
+// require('bootstrap/js/dist/p*opover');
 
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();

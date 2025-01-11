@@ -29,7 +29,6 @@ class AdminController extends AbstractController
                 'visits' => $this->animalVisitService->getVisits($animal->getFirstname()),
             ];
         }
-        dd($animalVisits);
         return $this->render('admin/dashboard.html.twig', [
             'animalVisits' => $animalVisits,
         ]);

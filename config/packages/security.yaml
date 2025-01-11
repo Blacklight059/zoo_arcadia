@@ -48,8 +48,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/veterinarian, roles: ROLE_VETERINARIAN }
-        - { path: ^/employee, roles: ROLE_EMPLOYEE }
+        - { path: ^/veterinarian, roles: [ROLE_ADMIN, ROLE_VETERINARIAN] }
+        - { path: ^/employee, roles: [ROLE_ADMIN, ROLE_EMPLOYEE] }
         
 when@test:
     security:

@@ -1,58 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Value+Serif:wght@400&family=Halant:wght@400&family=Vollkorn:wght@400&family=Georgia&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Halant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-        
-
-    </head>
-    <body class="d-flex flex-column min-vh-100">
-        <header>
-            <div class="d-flex align-items-center">
-                <a class="navbar-brand m-2" href="#">
-                    <span id="title">Arcadia</span>
-                </a>        
-                <nav class="navbar navbar-expand-lg navbar-light bg-light flex-grow-1 m-2">
-                    <div class="container-fluid">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item"><a class="nav-link" href="{{ path('app_homepage') }}">Accueil</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('app_services') }}">Services</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('app_habitats') }}">Habitats</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ path('app_contact') }}">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>     
-                {% if app.user %}              
-                <button onclick="window.location='{{ path('app_logout') }}'" class="btn m-2" type="button">
-                    Deconnexion
-                </button>
-                {% else %}
-                <button onclick="window.location='{{ path('app_login') }}'" class="btn m-2" type="button">
-                    Connexion
-                </button>
-                {% endif %}                   
-            </div>
-                    
-            {% if app.user %}
-            <div id="title" class="m-3">Bonjour {{ app.user.firstname }} {{ app.user.name }}</div>
-            <nav id="nav-user" class="navbar navbar-expand-lg bg-light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcadia - Gestion de la Faune</title>
+    <meta name="description" content="Arcadia - Plateforme de gestion de la faune et des habitats.">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Value+Serif:wght@400&family=Halant:wght@400&family=Vollkorn:wght@400&family=Georgia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Halant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand m-2" href="#">
+                <span id="title">Arcadia</span>
+            </a>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light flex-grow-1 m-2">
                 <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                    </button>                    
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav ml-auto align-items-center">
-                        {% if ( app.user.roles[0] == 'ROLE_ADMIN') %}
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_homepage') }}">Accueil</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_services') }}">Services</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_habitats') }}">Habitats</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ path('app_contact') }}">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            {% if app.user %}
+            <button onclick="window.location.href='{{ path('app_logout') }}'" class="btn m-2" type="button">Deconnexion</button>
+            {% else %}
+            <button onclick="window.location.href='{{ path('app_login') }}'" class="btn m-2" type="button">Connexion</button>
+            {% endif %}
+        </div>
+
+        {% if app.user %}
+        <div id="title" class="m-3">Bonjour {{ app.user.firstname }} {{ app.user.name }}</div>
+        <nav id="nav-user" class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUser" aria-controls="navbarUser" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarUser">
+                    <ul class="navbar-nav ml-auto align-items-center">
+                        {% if app.user.roles[0] == 'ROLE_ADMIN' %}
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_employee_index') }}">Employés</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_veterinarian_index') }}">Vétérinaires</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_service_index') }}">Services</a></li>
@@ -61,113 +58,84 @@
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_animal_index') }}">Animaux</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_vet_report_list') }}">Comptes rendus</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('admin_dashboard') }}">Dashboard</a></li>
-
-                            
                         {% elseif app.user.roles[0] == 'ROLE_VETERINARIAN' %}
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_vet_report_index') }}">Rapports Vétérinaires</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_habitat_comment_index') }}">Commentaires sur les habitats</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_food_consumption_foodList') }}">Rapport sur le repas des animaux</a></li>
-
-                        
                         {% elseif app.user.roles[0] == 'ROLE_EMPLOYEE' %}
                             <li class="nav-item"><a class="nav-link" href="{{ path('review_list') }}">Validation des avis</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_food_consumption_index') }}">Alimentation pour les animaux</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ path('app_service_index') }}">Gérer les services</a></li>
-
-
                         {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% endif %}
+    </header>
+
+    {% block body %}{% endblock %}
+
+    <footer>
+        <div class="position-absolute justify-content-center p-4" id="footer">
+            <div class="container">
+                <div class="row text-center align-items-baseline">
+                    <div class="d-inline align-items-baseline col-lg-12 mb-3">
+                        <div class="fw-bolder">Réseaux sociaux :</div>
+                        <div class="d-flex justify-content-center">
+                            <div class="d-flex justify-content-around col-lg-4 col-md-6 col-12 mt-3 social-buttons">
+                                <a href="#" class="col" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-facebook fa-xl fa-bounce" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="col" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-twitter fa-xl fa-bounce" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="col" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-youtube fa-xl fa-bounce" aria-hidden="true"></i>
+                                </a>
+                                <a href="#" class="col" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-instagram fa-xl fa-bounce" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center align-items-baseline">
+                    <div class="d-inline col-lg-4 col-12">
+                        <div class="fw-bolder">À propos de Arcadia</div>
+                        <ul class="list-unstyled openning-hours">
+                            <li class="nav-item">Groupe de faune de Arcadia</li>
+                            <li class="nav-item">La famille Arcadia</li>
+                            <li class="nav-item">Projet de rajeunissement de Arcadia</li>
                         </ul>
                     </div>
-                    
-                </div>
-            </nav>
-            {% endif %}
-        </header>
-        {% block body %}{% endblock %}
-            <footer>
-                <div class="position-absolute justify-content-center p-4" id="footer">
-                    <div class="container">
-                        <div class="row text-center align-items-baseline ">
-                            <div class="d-inline align-items-baseline col-lg-12 mb-3">
-                                <div class="fw-bolder">
-                                    Réseaux sociaux :
-                                </div>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="d-flex justify-content-around col-lg-4 col-md-6 col-12 mt-3 social-buttons">
-                                            <a href="#" class="col" target="_blank" rel="noopener">
-                                                <i class="fab fa-facebook fa-xl fa-bounce" area-hidden="true">
-                                                </i>
-                                            </a>
-                                            <a href="#" class="col" target="_blank" rel="noopener">
-                                                <i class="fab fa-twitter fa-xl fa-bounce" area-hidden="true">
-                                                </i>
-                                            </a>
-                                            <a href="#" class="col" target="_blank" rel="noopener">
-                                                <i class="fab fa-youtube fa-xl fa-bounce" area-hidden="true">
-                                                </i>
-                                            </a>
-                                            <a href="#" class="col" target="_blank" rel="noopener">
-                                                <i class="fab fa-instagram fa-xl fa-bounce" area-hidden="true">
-                                                </i>
-                                            </a>
-                                        </div>                                    
-                                    </div>
-
-                            </div>
-                        </div>
-                        <div class="row text-center align-items-baseline ">
-
-                            <div class="d-inline col-lg-4 col-12">
-                                <div class="fw-bolder">
-                                    À propos de Arcadia
-                                </div>
-                                <ul class="list-unstyled openning-hours">
-                                    <li class="nav-item">Groupe de faune de Arcadia
-                                    </li>
-                                    <li class="nav-item">La famille Arcadia
-                                    </li>
-                                    <li class="nav-item">Projet de rajeunissement de Arcadia
-                                    </li>                                 
-                                </ul>
-                            </div>
-                            <div class="d-inline col-lg-4 col-12">
-                                <div class="fw-bolder">
-                                    Entreprise
-                                </div>
-                                <ul class="list-unstyled openning-hours">
-                                    <li class="nav-item">Planifiez un événement sauvage
-                                    </li>
-                                    <li class="nav-item">Avantages de la faune pour les entreprises
-                                    </li>  
-                                    <li class="nav-item">Programme d'adoption
-                                    </li>                        
-                                </ul>
-                            </div>
-                            <div class="d-inline col-lg-4 col-12">
-                                <div class="fw-bolder">
-                                    Besoin d'aide?
-                                </div>
-                                <ul class="list-unstyled openning-hours">
-                                    <li class="nav-item">Planifiez un événement sauvage
-                                    </li>
-                                    <li class="nav-item">Annonces
-                                    </li>  
-                                    <li class="nav-item">FAQ
-                                    </li>
-                                    <li class="nav-item">Contacter-nous
-                                    </li>                              
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="d-inline col-lg-4 col-12">
+                        <div class="fw-bolder">Entreprise</div>
+                        <ul class="list-unstyled openning-hours">
+                            <li class="nav-item">Planifiez un événement sauvage</li>
+                            <li class="nav-item">Avantages de la faune pour les entreprises</li>
+                            <li class="nav-item">Programme d'adoption</li>
+                        </ul>
+                    </div>
+                    <div class="d-inline col-lg-4 col-12">
+                        <div class="fw-bolder">Besoin d'aide?</div>
+                        <ul class="list-unstyled openning-hours">
+                            <li class="nav-item">Planifiez un événement sauvage</li>
+                            <li class="nav-item">Annonces</li>
+                            <li class="nav-item">FAQ</li>
+                            <li class="nav-item">Contacter-nous</li>
+                        </ul>
                     </div>
                 </div>
-            </footer>
-        <script src="https://kit.fontawesome.com/c2a84b56c5.js" crossorigin="anonymous"></script>
-        <script src="https://www.google.com/recaptcha/api.js"></script>
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        
-        {% endblock %}
-    </body>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/c2a84b56c5.js" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</body>
 </html>
