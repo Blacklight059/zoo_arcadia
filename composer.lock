@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de5a4ae576c6688693edf7f3c37fc44a",
+    "content-hash": "519502de322e7d1ecde7daa4346937fa",
     "packages": [
         {
             "name": "composer/semver",
@@ -1184,16 +1184,16 @@
         },
         {
             "name": "doctrine/mongodb-odm-bundle",
-            "version": "5.1.1",
+            "version": "5.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMongoDBBundle.git",
-                "reference": "0952d9af5e8d2b9423cd535e05d96da551fb0ba8"
+                "reference": "08b29d4000771b2a6ff863de40fdc2cf4a9da429"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMongoDBBundle/zipball/0952d9af5e8d2b9423cd535e05d96da551fb0ba8",
-                "reference": "0952d9af5e8d2b9423cd535e05d96da551fb0ba8",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMongoDBBundle/zipball/08b29d4000771b2a6ff863de40fdc2cf4a9da429",
+                "reference": "08b29d4000771b2a6ff863de40fdc2cf4a9da429",
                 "shasum": ""
             },
             "require": {
@@ -1264,9 +1264,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/DoctrineMongoDBBundle/issues",
-                "source": "https://github.com/doctrine/DoctrineMongoDBBundle/tree/5.1.1"
+                "source": "https://github.com/doctrine/DoctrineMongoDBBundle/tree/5.1.2"
             },
-            "time": "2024-12-16T08:30:40+00:00"
+            "time": "2025-01-05T13:51:23+00:00"
         },
         {
             "name": "doctrine/orm",
